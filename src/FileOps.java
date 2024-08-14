@@ -22,10 +22,10 @@ public class FileOps {
         //ask user for file name
         System.out.println("Please enter a file name: ");
         String fileName = scanner.nextLine();
-
+/
         //read file
         StringBuilder fileContent = new StringBuilder();
-
+//
 
         //try to read file - this is where we will use try/catch
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
