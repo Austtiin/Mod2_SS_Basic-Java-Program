@@ -11,10 +11,11 @@ import java.util.Scanner;
 
     public class KeyboardInput {
         public String getInput() {
+
+            //start scanner
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Please enter some input: ");
+            //ask user for input
+            System.out.println("Enter some input here to test: ");
             return scanner.nextLine();
         }
     }
-
-}
