@@ -49,6 +49,9 @@ public class Main {
         // Combine inputs for validation
         String combinedInput = userInput + fileContent;
 
+        //display file content
+        System.out.println("File content: " + fileContent);
+
         // Define regex for allowed characters (a-z, A-Z, 0-9, and punctuation)
         String allowedCharsRegex = "[^a-zA-Z0-9\\s\\p{Punct}]";
 
@@ -73,6 +76,9 @@ public class Main {
         matcher = pattern.matcher(cleanedInput);
 
 
+        // Display cleaned input
+        System.out.println("Cleaned input: " + cleanedInput);
+
 
         // Validate input
         // Check if input matches the regex pattern
@@ -81,6 +87,10 @@ public class Main {
         } else {
             System.out.println("The input is not valid");
         }
+
+        //have system update file with cleaned input
+        fileOps.updateFile(cleanedInput);
+
 
         // Display message to user that program has completed successfully
         System.out.println("The program has completed successfully");

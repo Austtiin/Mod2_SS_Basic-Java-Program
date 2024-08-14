@@ -20,7 +20,7 @@ public class FileOps {
         Scanner scanner = new Scanner(System.in);
 
         //ask user for file name
-        System.out.println("Please enter a file name: ");
+        System.out.println("Please enter the name of the file: ");
         String fileName = scanner.nextLine();
 
         //read file
@@ -42,5 +42,26 @@ public class FileOps {
 
         //return file content / string builder as string to main
         return fileContent.toString();
+    }
+
+    public void updateFile(String cleanedInput) {
+        //start scanner
+        Scanner scanner = new Scanner(System.in);
+
+        //ask user for file name
+        System.out.println("Please enter the name of the file you would like to update: ");
+        String fileName = scanner.nextLine();
+
+        //try to write to file - this is where we will use try/catch
+        try {
+            //write to file
+            java.io.FileWriter fileWriter = new java.io.FileWriter(fileName);
+            fileWriter.write(cleanedInput);
+            fileWriter.close();
+            System.out.println("File updated successfully!");
+        } catch (IOException e) {
+            //error out if file is not found
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
     }
 }
