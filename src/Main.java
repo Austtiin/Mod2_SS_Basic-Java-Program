@@ -30,36 +30,59 @@
 //main - the main class of the project everything else
 
 
-
+// src/Main.java
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Main {
     public static void main(String[] args) {
+
+        // Create instances of the KeyboardInput and FileOps classes
         KeyboardInput keyboardInput = new KeyboardInput();
         FileOps fileOps = new FileOps();
 
-        // Get keyboard input
+
+        // Get keyboard input method
         String userInput = keyboardInput.getInput();
-
-        // Get file input
+        // Get file input method
         String fileContent = fileOps.getFile();
-
         // Combine inputs for validation
         String combinedInput = userInput + fileContent;
 
-        // Define regex for validation
-        String regex = "[a-zA-Z0-9\\s\\p{Punct}]*";
-        Pattern pattern = Pattern.compile(regex);
+        // Define regex for allowed characters (a-z, A-Z, 0-9, and punctuation)
+        String allowedCharsRegex = "[^a-zA-Z0-9\\s\\p{Punct}]";
+
+
+        //Compile regex pattern
+        Pattern pattern = Pattern.compile(allowedCharsRegex);
+        //Create matcher object
         Matcher matcher = pattern.matcher(combinedInput);
 
+
+
+        // Strip out extraneous characters
+        String cleanedInput = matcher.replaceAll("");
+        // Define regex for validation
+        String validationRegex = "[a-zA-Z0-9\\s\\p{Punct}]*";
+
+
+
+        // Compile regex pattern
+        pattern = Pattern.compile(validationRegex);
+        // Create matcher object
+        matcher = pattern.matcher(cleanedInput);
+
+
+
         // Validate input
+        // Check if input matches the regex pattern
         if (matcher.matches()) {
             System.out.println("The input is valid");
         } else {
             System.out.println("The input is not valid");
         }
 
+        // Display message to user that program has completed successfully
         System.out.println("The program has completed successfully");
     }
 }
