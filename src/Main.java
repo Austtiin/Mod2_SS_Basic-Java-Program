@@ -36,63 +36,50 @@ import java.util.regex.Matcher;
 
 public class Main {
     public static void main(String[] args) {
+        //our process will basically be to get input from the user and a file and then validate
+        // the input and update the file with the cleaned input
+
 
         // Create instances of the KeyboardInput and FileOps classes
         KeyboardInput keyboardInput = new KeyboardInput();
         FileOps fileOps = new FileOps();
 
-
-        // Get keyboard input method
+        // Get keyboard input
         String userInput = keyboardInput.getInput();
-        // Get file input method
+        // Get file input
         String fileContent = fileOps.getFile();
         // Combine inputs for validation
         String combinedInput = userInput + fileContent;
 
-        //display file content
+        // Display file content
         System.out.println("File content: " + fileContent);
 
         // Define regex for allowed characters (a-z, A-Z, 0-9, and punctuation)
         String allowedCharsRegex = "[^a-zA-Z0-9\\s\\p{Punct}]";
-
-
-        //Compile regex pattern
         Pattern pattern = Pattern.compile(allowedCharsRegex);
-        //Create matcher object
         Matcher matcher = pattern.matcher(combinedInput);
-
-
 
         // Strip out extraneous characters
         String cleanedInput = matcher.replaceAll("");
-        // Define regex for validation
-        String validationRegex = "[a-zA-Z0-9\\s\\p{Punct}]*";
-
-
-
-        // Compile regex pattern
-        pattern = Pattern.compile(validationRegex);
-        // Create matcher object
-        matcher = pattern.matcher(cleanedInput);
-
 
         // Display cleaned input
         System.out.println("Cleaned input: " + cleanedInput);
 
+        // Define regex for validation
+        String validationRegex = "[a-zA-Z0-9\\s\\p{Punct}]*";
+        pattern = Pattern.compile(validationRegex);
+        matcher = pattern.matcher(cleanedInput);
 
         // Validate input
-        // Check if input matches the regex pattern
-        if (matcher.matches()) {
-            System.out.println("The input is valid");
-        } else {
-            System.out.println("The input is not valid");
+        if (!matcher.matches()) {
+            System.out.println("Invalid input detected. Cleaning input...");
+            cleanedInput = cleanedInput.replaceAll(allowedCharsRegex, "");
         }
 
-        //have system update file with cleaned input
+        // Update file with cleaned input
         fileOps.updateFile(cleanedInput);
 
-
-        // Display message to user that program has completed successfully
+        // Completed message
         System.out.println("The program has completed successfully");
     }
 }
